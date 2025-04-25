@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="card-title mb-4" style="
+                        background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                    ">Welcome to Learning Hub!</h1>
+                    <p class="card-text mb-4" style="font-size: 1.2rem;">You are successfully logged in.</p>
+                    <div class="mt-4">
+                        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+        to {
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        }
+    }
+
+    .card-title {
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+{% endblock %}
