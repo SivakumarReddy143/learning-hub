@@ -3,56 +3,92 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row justify-content-center" style="width: 100%;">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h1 class="card-title mb-4" style="
-                        background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        font-weight: 700;
-                        letter-spacing: 1px;
-                    ">Welcome to Learning Hub!</h1>
-                    <p class="card-text mb-4" style="font-size: 1.2rem;">You are successfully logged in.</p>
-                    <div class="mt-4">
-                        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+            <a href="{{ url_for('chat') }}" class="chatbot-card-link">
+                <div class="chatbot-card">
+                    <div class="chatbot-icon">
+                        <img src="{{ url_for('static', filename='images/chatbot-icon.svg') }}" alt="Chatbot" class="chatbot-image">
                     </div>
+                    <h3 class="chatbot-title">Chatbot</h3>
+                    <p class="chatbot-description">A virtual assistant ready to help you with your needs.</p>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>
 
 <style>
-    .card {
-        animation: glow 2s ease-in-out infinite alternate;
+    /* Chatbot Card Styles */
+    .chatbot-card-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
     }
 
-    @keyframes glow {
-        from {
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
-        }
-        to {
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
-        }
+    .chatbot-card {
+        background: rgba(20, 20, 20, 0.9);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        cursor: pointer;
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        backdrop-filter: blur(10px);
     }
 
-    .card-title {
-        animation: pulse 2s ease-in-out infinite;
+    .chatbot-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+        border-color: rgba(0, 243, 255, 0.5);
     }
 
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-        100% {
-            transform: scale(1);
-        }
+    .chatbot-icon {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 30px;
+        background: rgba(0, 243, 255, 0.1);
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(0, 243, 255, 0.3);
+    }
+
+    .chatbot-card:hover .chatbot-icon {
+        background: rgba(0, 243, 255, 0.2);
+        border-color: rgba(0, 243, 255, 0.5);
+    }
+
+    .chatbot-image {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .chatbot-title {
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--neon-blue);
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    }
+
+    .chatbot-description {
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 1.6;
+        margin: 0;
+        text-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
+    }
+
+    /* Root Variables */
+    :root {
+        --neon-blue: #00f3ff;
+        --neon-purple: #9d00ff;
     }
 </style>
 {% endblock %}

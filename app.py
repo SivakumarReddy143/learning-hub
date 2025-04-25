@@ -1,13 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import pyrebase
 import os
 from dotenv import load_dotenv
+from chatbot import Chatbot
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')  # Use environment variable for secret key
+
+# Initialize chatbot
+chatbot = Chatbot()
 
 # 🔥 Firebase Configuration
 firebase_config = {
@@ -60,6 +64,30 @@ def logout():
     session.pop('user', None)
     flash("You have been logged out.", "info")
     return redirect(url_for('login'))
+
+@app.route('/chat')
+def chat_page():
+    if 'user' not in session:
+        flash("Please log in to access the chat.", "warning")
+        return redirect(url_for('login'))
+    return render_template('chat.html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    if 'user' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    
+    data = request.get_json()
+    message = data.get('message', '')
+    
+    if not message:
+        return jsonify({'error': 'No message provided'}), 400
+    
+    try:
+        response = chatbot.get_response(message)
+        return jsonify({'response': response})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
