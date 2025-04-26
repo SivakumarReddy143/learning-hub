@@ -4,4 +4,4 @@ python-dotenv
 flask
 pyrebase4
 markdown
-
+gunicorn
